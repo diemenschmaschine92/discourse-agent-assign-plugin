@@ -7,10 +7,10 @@ function initWithApi(api) {
   // console.log('USERS', usersModel);
   // console.log('USERS MODEL', usersModel?.model);
 
-  const defaultSearchTerm = '';
+  //const defaultSearchTerm = '';
 
   api.modifyClass("controller:topic", {
-    searchTerm: defaultSearchTerm,
+    // searchTerm: defaultSearchTerm,
     users: Ember.inject.controller("users"),
 
     actions: {

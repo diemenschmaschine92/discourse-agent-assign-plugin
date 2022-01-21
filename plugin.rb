@@ -22,7 +22,7 @@ after_initialize do
           if custom_fields['assigned_user'] != nil
             custom_fields['assigned_user']
           else
-            SiteSetting.signatures_visible_by_default
+            true
           end
         end
 
@@ -30,7 +30,7 @@ after_initialize do
           if custom_fields['is_assigned'] != nil
             custom_fields['is_assigned']
           else
-            SiteSetting.signatures_visible_by_default
+            true
           end
         end
 
@@ -38,20 +38,20 @@ after_initialize do
           if custom_fields['search_term'] != nil
             custom_fields['search_term']
           else
-            SiteSetting.signatures_visible_by_default
+            true
           end
         end
     
         add_to_serializer(:topic_view, :assigned_user) do
-          object.topic.custom_fields[assigned_user]
+          object.topic.custom_fields['assigned_user']
         end
 
         add_to_serializer(:topic_view, :is_assigned) do
-            object.topic.custom_fields[is_assigned]
+            object.topic.custom_fields['is_assigned']
         end
 
         add_to_serializer(:topic_view, :search_term) do
-            object.topic.custom_fields[search_term]
+            object.topic.custom_fields['search_term']
         end
     
     end
