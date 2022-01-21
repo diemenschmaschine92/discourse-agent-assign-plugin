@@ -3,7 +3,7 @@
     {{#if custom_fields.is_assigned}}
         <i>Assigned to </i>{{custom_fields.assigned_user}}
         <button {{action "unassignUser" model on="click"}}>Unassign</button>
-    {{#else}}
+    {{else}}
         <div class="dropdown">
             <i>Assign topic to agent</i>
           <div id="user-dropdown" class="dropdown-content">
