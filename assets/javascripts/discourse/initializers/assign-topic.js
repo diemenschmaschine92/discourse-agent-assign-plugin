@@ -3,7 +3,7 @@ import { withPluginApi } from "discourse/lib/plugin-api";
 function initWithApi(api) {
   // if (!Discourse.SiteSettings.custom_directory_enabled) return;
 
-  const usersModel = api.container.lookup("controller:users-controller").get('model');
+  const usersModel = api.container.lookup("controller:users-controller")?.get('model') || {};
   console.log('USERS MODEL', usersModel);
 
   const defaultSearchTerm = '';
