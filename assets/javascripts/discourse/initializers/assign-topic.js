@@ -3,20 +3,20 @@ import { withPluginApi } from "discourse/lib/plugin-api";
 function initWithApi(api) {
   // if (!Discourse.SiteSettings.custom_directory_enabled) return;
 
-  const usersModel = api.container.lookup("controller:users")?.get('model') || {};
-  console.log('USERS', usersModel);
-  console.log('USERS MODEL', usersModel?.model);
+  // const usersModel = api.container.lookup("controller:users")?.get('model') || {};
+  // console.log('USERS', usersModel);
+  // console.log('USERS MODEL', usersModel?.model);
 
   const defaultSearchTerm = '';
 
   api.modifyClass("controller:topic", {
     searchTerm: defaultSearchTerm,
-    // users: Ember.inject.controller("users"),
+    users: Ember.inject.controller("users"),
 
     actions: {
 
       filterUsers(topic) {
-        const matchingUsers = usersModel?.filter((user) => {
+        const matchingUsers = this.users?.filter((user) => {
             return user.username?.toLowerCase()?.includes(topic.custom_fields.search_term.toLowerCase());
         });
         const userSearchList = document.getElementById('user-search-list');
