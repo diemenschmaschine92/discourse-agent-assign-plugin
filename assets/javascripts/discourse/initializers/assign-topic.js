@@ -5,7 +5,7 @@ function initWithApi(api) {
 
   const usersModel = api.container.lookup("controller:users")?.get('model') || {};
   console.log('USERS', usersModel);
-  console.log('USERS MODEL', usersModel.model);
+  console.log('USERS MODEL', usersModel?.model);
 
   const defaultSearchTerm = '';
 
