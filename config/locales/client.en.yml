@@ -2,3 +2,5 @@ en:
   js:
     discourse_plugin_name:
       placeholder: placeholder
+  site_settings:
+    agent_assign_enabled: 'Enable Agent Assign'
