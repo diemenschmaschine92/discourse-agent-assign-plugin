@@ -16,6 +16,7 @@ function initWithApi(api) {
     actions: {
 
       filterUsers(topic) {
+        console.log('INSIDE HELPER', users);
         const matchingUsers = this.users?.filter((user) => {
             return user.username?.toLowerCase()?.includes(topic.custom_fields.search_term.toLowerCase());
         });
