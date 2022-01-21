@@ -1,6 +1,7 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 
 function initWithApi(api) {
+  console.log('INIT');
   // if (!Discourse.SiteSettings.custom_directory_enabled) return;
 
   // const usersModel = api.container.lookup("controller:users")?.get('model') || {};
