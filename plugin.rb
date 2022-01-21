@@ -42,15 +42,15 @@ after_initialize do
           end
         end
     
-        add_to_serializer(:topic, :assigned_user) do
+        add_to_serializer(:topic_view, :assigned_user) do
           object.topic.custom_fields[assigned_user]
         end
 
-        add_to_serializer(:topic, :is_assigned) do
+        add_to_serializer(:topic_view, :is_assigned) do
             object.topic.custom_fields[is_assigned]
         end
 
-        add_to_serializer(:topic, :search_term) do
+        add_to_serializer(:topic_view, :search_term) do
             object.topic.custom_fields[search_term]
         end
     
