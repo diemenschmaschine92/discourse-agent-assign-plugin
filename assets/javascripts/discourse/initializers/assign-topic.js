@@ -11,7 +11,7 @@ function initWithApi(api) {
     model(params, transition) {
       return ajax("/u?order=likes_received")
         .then((response) => {
-          console.log('')
+          console.log('SUCCESSFUL LOAD');
           if (params.slug.match(ID_CONSTRAINT)) {
             transition.abort();
       
