@@ -8,6 +8,8 @@
 # required_version: 2.7.0
 # transpile_js: true
 
+require 'json'
+
 enabled_site_setting :agent_assign_enabled
 
 after_initialize do
@@ -20,8 +22,17 @@ after_initialize do
         puts users
 
         users.each do |user|
-            usernames.push(user.username)
+          usernames << {:username=>user.username}
         end
+
+        File.open("public/usernames.json", "w") do |f|
+          f.write(JSON.pretty_generate(usernames))
+        end
+
+        file = File.read('public/users.json')
+        data_hash = JSON.parse(file)
+        puts "RUBY READ RESULT"
+        puts data_hash
 
         Topic.register_custom_field_type('assigned_user', :text)
         Topic.register_custom_field_type('is_assigned', :boolean)
