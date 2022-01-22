@@ -6,7 +6,7 @@ function filterUsersWithApi(api, opts) {
   const users = api.container.lookup('controller:users')?.get('model') || {};
   console.log('USERS', users);
   console.log('TOPIC', topic);
-  const matchingUsers = this.users?.content?.filter((c) => {
+  const matchingUsers = users?.content?.filter((c) => {
       return c.user?.username?.toLowerCase()?.includes(topic.search_term?.toLowerCase())
         || c.user?.name?.toLowerCase()?.includes(topic.search_term?.toLowerCase());
   });
