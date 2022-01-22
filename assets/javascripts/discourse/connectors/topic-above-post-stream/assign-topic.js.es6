@@ -6,25 +6,24 @@ function filterUsersWithApi(api, opts) {
   const { topic } = opts;
   // const users = api.container.lookup('controller:users')?.get('model') || {};
   // const userModel = api.container.lookup('models:users')
-  const users = User.current().findAll();
+  const { usernames } = topic;
   console.log('USER CURRENT', User.current());
   console.log('USERS', users);
   console.log('TOPIC', topic);
-  const matchingUsers = users?.content?.filter((c) => {
-      return c.user?.username?.toLowerCase()?.includes(topic.search_term?.toLowerCase())
-        || c.user?.name?.toLowerCase()?.includes(topic.search_term?.toLowerCase());
+  const matchingUsers = usernames.filter((u) => {
+      return u.toLowerCase()?.includes(topic.search_term?.toLowerCase());
   });
   const userSearchList = document.getElementById('user-search-list');
 
   userSearchList.innerHTML = matchingUsers.map((u) => {
-    return `<div class='${u.user?.username?.toLowerCase()}'>${u.user?.username}</div>`
+    return `<div class='${u.toLowerCase()}'>${u}</div>`
   }).join('\n');
 
   for (const u in matchingUsers) {
-    const userEl = userSearchList.getElementsByClassName(u.user?.username?.toLowerCase())[0];
+    const userEl = userSearchList.getElementsByClassName(u.toLowerCase())[0];
 
     userEl.addEventListener("click", function() {
-      topic.set('assigned_user', u.user?.username);
+      topic.set('assigned_user', u);
       topic.set('is_assigned', true);
       topic.set('search_term', '')
       const event = new Event('change');  

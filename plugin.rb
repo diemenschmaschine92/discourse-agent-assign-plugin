@@ -13,9 +13,20 @@ enabled_site_setting :agent_assign_enabled
 after_initialize do
     if SiteSetting.agent_assign_enabled then
 
+        users = User.first(3)
+        usernames = []
+
+        puts 'RUBY USERS'
+        puts users
+
+        users.each do |user|
+            usernames.push(user.username)
+        end
+
         Topic.register_custom_field_type('assigned_user', :text)
         Topic.register_custom_field_type('is_assigned', :boolean)
         Topic.register_custom_field_type('search_term', :text)
+        Topic.register_custom_field_type('usernames', [:text])
 
         # add to class and serializer to allow for default value for the setting
         add_to_class(:topic, :assigned_user) do
@@ -53,7 +64,10 @@ after_initialize do
         add_to_serializer(:topic_view, :search_term) do
             object.topic.custom_fields['search_term'] if object.topic.custom_fields
         end
-    
+
+        add_to_serializer(:topic_view, :usernames) do
+            object.topic.custom_fields['usernames'] if object.topic.custom_fields
+        end
     end
 
 end
