@@ -12,7 +12,7 @@ function filterUsersWithApi(api, opts) {
   //   fs.readFileSync('../../../../usernames.json')
   // );
 
-  const usernames = require('./students.json'); 
+  const usernames = require('../../../../usernames.json'); 
   console.log('USERNAMES IN FILTER', usernames);
 
   const matchingUsers = usernames?.filter((u) => {

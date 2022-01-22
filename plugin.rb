@@ -27,11 +27,11 @@ after_initialize do
 
         puts usernames
 
-        File.open("users.json", "w") do |f|
+        File.open("usernames.json", "w") do |f|
           f.write(JSON.pretty_generate(usernames))
         end
 
-        file = File.read('./users.json')
+        file = File.read('./usernames.json')
         data_hash = JSON.parse(file)
         puts "RUBY READ RESULT"
         puts data_hash
@@ -39,7 +39,6 @@ after_initialize do
         Topic.register_custom_field_type('assigned_user', :text)
         Topic.register_custom_field_type('is_assigned', :boolean)
         Topic.register_custom_field_type('search_term', :text)
-        Topic.register_custom_field_type('usernames', [:text])
 
         # add to class and serializer to allow for default value for the setting
         add_to_class(:topic, :assigned_user) do
@@ -91,15 +90,15 @@ after_initialize do
         # end
     
         add_to_serializer(:topic_view, :assigned_user) do
-          object.topic.assigned_user if object.topic
+          if object.topic.custom_fields['assigned_user'] if object.topic.custom_fields
         end
 
         add_to_serializer(:topic_view, :is_assigned) do
-            object.topic.is_assigned if object.topic
+            if object.topic.custom_fields['is_assigned'] if object.topic.custom_fields
         end
 
         add_to_serializer(:topic_view, :search_term) do
-            object.topic.search_term if object.topic
+            if object.topic.custom_fields['search_term'] if object.topic.custom_fields
         end
 
         # add_to_serializer(:topic_view, :usernames) do
