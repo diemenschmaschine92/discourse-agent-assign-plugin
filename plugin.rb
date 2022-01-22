@@ -80,19 +80,19 @@ after_initialize do
         end
     
         add_to_serializer(:topic_view, :assigned_user) do
-          object.topic.assigned_user
+          object.topic.assigned_user if object.topic
         end
 
         add_to_serializer(:topic_view, :is_assigned) do
-            object.topic.is_assigned
+            object.topic.is_assigned if object.topic
         end
 
         add_to_serializer(:topic_view, :search_term) do
-            object.topic.search_term
+            object.topic.search_term if object.topic
         end
 
         add_to_serializer(:topic_view, :usernames) do
-            object.topic.usernames
+            object.topic.usernames if object.topic
         end
     end
 
