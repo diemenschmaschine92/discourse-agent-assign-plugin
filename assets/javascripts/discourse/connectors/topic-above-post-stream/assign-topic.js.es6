@@ -9,8 +9,9 @@ function filterUsersWithApi(api, opts) {
   const { usernames } = topic;
   console.log('USERNAMES', usernames);
   console.log('TOPIC', topic);
-  console.log('USERNAMES VIA GET ROUND 1', topic.get('usernames'));
-  topic.set('usernames', null);
+  console.log('USERNAMES VIA GET BEFORE SET');
+  console.log(topic.get('usernames'));
+  topic.set('usernames');
   console.log('USERNAMES VIA GET ROUND 2', topic.get('usernames'));
 
   const matchingUsers = usernames?.filter((u) => {
@@ -48,6 +49,16 @@ export default {
         topic.set('assigned_user', undefined);
         topic.set('is_assigned', false);
       },
+
+      // setupComponent(attrs, component) {
+      //   const model = attrs.model;
+        
+      //   let props = {
+      //     fieldName: 'usernames',
+      //     fieldValue: model.get('usernames')
+      //   }
+      //   component.setProperties(Object.assign(props, fieldInputTypes(fieldType)));
+      // },
 
     }
 };

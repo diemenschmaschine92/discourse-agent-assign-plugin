@@ -56,9 +56,14 @@ after_initialize do
         end
 
         add_to_class(:topic, :usernames) do
+            puts "GETTING USERNAMES"
             if !custom_fields['usernames'].nil
+                puts "custom fields not nil"
+                puts custom_fields['usernames']
                 custom_fields['usernames']
             else
+                puts "custom fields nil"
+                puts usernames
                 usernames
             end
         end
@@ -69,23 +74,25 @@ after_initialize do
             # else 
             #     custom_fields['usernames'] = usernames
             # end
+            puts "SETTING USERNAMES"
+            puts usernames
             custom_fields['usernames'] = usernames
         end
     
         add_to_serializer(:topic_view, :assigned_user) do
-          object.topic.custom_fields['assigned_user'] if object.topic.custom_fields
+          object.topic.assigned_user
         end
 
         add_to_serializer(:topic_view, :is_assigned) do
-            object.topic.custom_fields['is_assigned'] if object.topic.custom_fields
+            object.topic.is_assigned
         end
 
         add_to_serializer(:topic_view, :search_term) do
-            object.topic.custom_fields['search_term'] if object.topic.custom_fields
+            object.topic.search_term
         end
 
         add_to_serializer(:topic_view, :usernames) do
-            object.topic.custom_fields['usernames'] if object.topic.custom_fields
+            object.topic.usernames
         end
     end
 
