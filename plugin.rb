@@ -29,7 +29,7 @@ after_initialize do
           f.write(JSON.pretty_generate(usernames))
         end
 
-        file = File.read('public/users.json')
+        file = File.read('public/usernames.json')
         data_hash = JSON.parse(file)
         puts "RUBY READ RESULT"
         puts data_hash
