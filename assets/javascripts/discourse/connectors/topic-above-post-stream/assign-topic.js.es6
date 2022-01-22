@@ -17,17 +17,24 @@ function filterUsersWithApi(api, opts) {
     .then((usernames) => {
       console.log('USERNAMES FROM JSON', usernames);
       console.log('TOPIC', topic);
-      const matchingUsers = usernames.filter((u) => {
+      const matchingUsernames = usernames.filter((u) => {
           return u.toLowerCase()?.includes(topic.search_term?.toLowerCase());
       });
       const userSearchList = document.getElementById('user-search-list');
     
-      userSearchList.innerHTML = matchingUsers.map((u) => {
-        return `<div class='${u.toLowerCase()}'>${u}</div>`
-      }).join('\n');
+      userSearchList.innerHTML = matchingUsernames
+        .map((u) => {
+          return `<div class='${u.toLowerCase()}'>${u}</div>`
+        })
+        .join('\n');
+
+      console.log('MATCHING USERS', matchingUsernames);
+      console.log('USER SEARCH LIST HTML', userSearchList);
     
-      for (const u in matchingUsers) {
+      for (const u in matchingUsernames) {
         const userEl = userSearchList.getElementsByClassName(u.toLowerCase())[0];
+
+        console.log('USER EL', userEl);
       
         userEl.addEventListener("click", function() {
           topic.set('assigned_user', u);
