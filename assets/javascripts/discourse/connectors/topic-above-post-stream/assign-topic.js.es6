@@ -9,7 +9,10 @@ function filterUsersWithApi(api, opts) {
   const { usernames } = topic;
   console.log('USERNAMES', usernames);
   console.log('TOPIC', topic);
-  console.log('USERNAMES VIA GET', topic.get('usernames'));
+  console.log('USERNAMES VIA GET ROUND 1', topic.get('usernames'));
+  topic.set('usernames', null);
+  console.log('USERNAMES VIA GET ROUND 2', topic.get('usernames'));
+
   const matchingUsers = usernames?.filter((u) => {
       return u.toLowerCase()?.includes(topic.search_term?.toLowerCase());
   });
