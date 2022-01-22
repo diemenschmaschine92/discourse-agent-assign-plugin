@@ -37,7 +37,7 @@ export default {
         });
       }
     });
-    
+
     //withPluginApi("0.8", initWithApi);
   }
 };

@@ -5,7 +5,9 @@ function filterUsersWithApi(api, opts) {
   console.log('GOT IN FILTER ACTION');
   const { topic } = opts;
   // const users = api.container.lookup('controller:users')?.get('model') || {};
-  const users = User.findAll();
+  // const userModel = api.container.lookup('models:users')
+  const users = User.current().findAll();
+  console.log('USER CURRENT', User.current());
   console.log('USERS', users);
   console.log('TOPIC', topic);
   const matchingUsers = users?.content?.filter((c) => {
