@@ -12,29 +12,37 @@ function filterUsersWithApi(api, opts) {
   //   fs.readFileSync('../../../../usernames.json')
   // );
 
-  const usernames = require('../../../../usernames.json'); 
-  console.log('USERNAMES IN FILTER', usernames);
+  var loc = window.location.pathname;
+  var pwd = loc.substring(0, loc.lastIndexOf('/'));
+  console.log('PWD', pwd);
 
-  const matchingUsers = usernames?.filter((u) => {
-      return u.toLowerCase()?.includes(topic.search_term?.toLowerCase());
-  });
-  const userSearchList = document.getElementById('user-search-list');
-
-  userSearchList.innerHTML = matchingUsers.map((u) => {
-    return `<div class='${u.toLowerCase()}'>${u}</div>`
-  }).join('\n');
-
-  for (const u in matchingUsers) {
-    const userEl = userSearchList.getElementsByClassName(u.toLowerCase())[0];
-
-    userEl.addEventListener("click", function() {
-      topic.set('assigned_user', u);
-      topic.set('is_assigned', true);
-      topic.set('search_term', '')
-      const event = new Event('change');  
-      document.getElementById('user-search').dispatchEvent(event);
+  fetch("../../../../usernames.json")
+    .then(response => {
+       return response.json();
+    })
+    .then((usernames) => {
+      console.log('USERNAMES IN FILTER', usernames);
+      const matchingUsers = usernames?.filter((u) => {
+        return u.toLowerCase()?.includes(topic.search_term?.toLowerCase());
+      });
+      const userSearchList = document.getElementById('user-search-list');
+    
+      userSearchList.innerHTML = matchingUsers.map((u) => {
+        return `<div class='${u.toLowerCase()}'>${u}</div>`
+      }).join('\n');
+    
+      for (const u in matchingUsers) {
+        const userEl = userSearchList.getElementsByClassName(u.toLowerCase())[0];
+      
+        userEl.addEventListener("click", function() {
+          topic.set('assigned_user', u);
+          topic.set('is_assigned', true);
+          topic.set('search_term', '')
+          const event = new Event('change');  
+          document.getElementById('user-search').dispatchEvent(event);
+        });
+      }
     });
-  }
 }
 
 export default {
