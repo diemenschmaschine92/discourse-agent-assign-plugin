@@ -13,7 +13,7 @@ enabled_site_setting :agent_assign_enabled
 after_initialize do
     if SiteSetting.agent_assign_enabled then
 
-        users = User.first(3)
+        users = User.first(4)
         usernames = []
 
         puts "RUBY USERS"
@@ -32,7 +32,7 @@ after_initialize do
 
         # add to class and serializer to allow for default value for the setting
         add_to_class(:topic, :assigned_user) do
-          if custom_fields['assigned_user'] != nil
+          if !custom_fields['assigned_user'].nil
             custom_fields['assigned_user']
           else
             nil
@@ -40,7 +40,7 @@ after_initialize do
         end
 
         add_to_class(:topic, :is_assigned) do
-          if custom_fields['is_assigned'] != nil
+          if !custom_fields['is_assigned'].nil
             custom_fields['is_assigned']
           else
             false
@@ -48,7 +48,7 @@ after_initialize do
         end
 
         add_to_class(:topic, :search_term) do
-          if custom_fields['search_term'] != nil
+          if !custom_fields['search_term'].nil
             custom_fields['search_term']
           else
             ''
@@ -56,11 +56,20 @@ after_initialize do
         end
 
         add_to_class(:topic, :usernames) do
-            if custom_fields['usernames'] != nil
+            if !custom_fields['usernames'].nil
                 custom_fields['usernames']
             else
                 usernames
             end
+        end
+
+        add_to_class(:topic, "usernames=") do |value|
+            # if !value.nil
+            #     custom_fields['usernames'] = value
+            # else 
+            #     custom_fields['usernames'] = usernames
+            # end
+            custom_fields['usernames'] = usernames
         end
     
         add_to_serializer(:topic_view, :assigned_user) do
