@@ -42,7 +42,8 @@ function filterUsersWithApi(api, opts) {
           document.getElementById('user-search').dispatchEvent(event);
         });
       }
-    });
+    })
+    .catch(err => console.error('Error reading from usernames', err));
 }
 
 export default {
