@@ -5,9 +5,9 @@ import { withPluginApi } from "discourse/lib/plugin-api";
 
 function initWithApi(api) {
 
-  api.serializeOnCreate('usernames');
-  api.serializeToDraft('usernames');
-  api.serializeToTopic('usernames', 'topic.usernames');
+  // api.serializeOnCreate('usernames');
+  // api.serializeToDraft('usernames');
+  // api.serializeToTopic('usernames', 'topic.usernames');
   // if (!Discourse.SiteSettings.custom_directory_enabled) return;
 
   // const usersController = Discourse.__container__.lookup('controller:users');
