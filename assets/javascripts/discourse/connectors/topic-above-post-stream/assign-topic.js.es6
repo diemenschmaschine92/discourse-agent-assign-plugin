@@ -6,18 +6,12 @@ function filterUsersWithApi(api, opts) {
   const { topic } = opts;
   // const users = api.container.lookup('controller:users')?.get('model') || {};
   // const userModel = api.container.lookup('models:users')
-
-  // const fs = require('fs');
-  // const usernames = JSON.parse(
-  //   fs.readFileSync('../../../../usernames.json')
-  // );
-
-  const usernamesJson = localStorage.getItem('usernames');
-  const usernames = JSON.parse(usernamesJson);
-
-  console.log('USERNAMES IN FILTER', usernames);
-  const matchingUsers = usernames?.filter((u) => {
-    return u.toLowerCase()?.includes(topic.search_term?.toLowerCase());
+  const { usernames } = topic;
+  console.log('USER CURRENT', User.current());
+  console.log('USERS', usernames);
+  console.log('TOPIC', topic);
+  const matchingUsers = usernames.filter((u) => {
+      return u.toLowerCase()?.includes(topic.search_term?.toLowerCase());
   });
   const userSearchList = document.getElementById('user-search-list');
 
@@ -27,7 +21,7 @@ function filterUsersWithApi(api, opts) {
 
   for (const u in matchingUsers) {
     const userEl = userSearchList.getElementsByClassName(u.toLowerCase())[0];
-  
+
     userEl.addEventListener("click", function() {
       topic.set('assigned_user', u);
       topic.set('is_assigned', true);
@@ -51,16 +45,6 @@ export default {
         topic.set('assigned_user', undefined);
         topic.set('is_assigned', false);
       },
-
-      // setupComponent(attrs, component) {
-      //   const model = attrs.model;
-        
-      //   let props = {
-      //     fieldName: 'usernames',
-      //     fieldValue: model.get('usernames')
-      //   }
-      //   component.setProperties(Object.assign(props, fieldInputTypes(fieldType)));
-      // },
 
     }
 };
