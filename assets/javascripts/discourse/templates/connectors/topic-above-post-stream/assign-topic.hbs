@@ -1,7 +1,7 @@
 <b>Hello World</b>
 <div class="assign-topic-container">
     {{#if custom_fields.is_assigned}}
-        <i>Assigned to </i>{{model.assigned_user || ''}}
+        <i>Assigned to </i>{{model.assigned_user}}
         <button {{action "unassignUser" model on="click"}}>Unassign</button>
     {{else}}
         <div class="dropdown">
