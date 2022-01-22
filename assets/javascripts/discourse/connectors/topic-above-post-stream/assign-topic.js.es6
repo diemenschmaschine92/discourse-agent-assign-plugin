@@ -12,38 +12,30 @@ function filterUsersWithApi(api, opts) {
   //   fs.readFileSync('../../../../usernames.json')
   // );
 
-  var loc = window.location.pathname;
-  var pwd = loc.substring(0, loc.lastIndexOf('/'));
-  console.log('PWD', pwd);
+  const usernamesJson = localStorage.getItem('usernames');
+  const usernames = JSON.parse(usernamesJson);
 
-  fetch("../../../../usernames.json")
-    .then(response => {
-       return response.json();
-    })
-    .then((usernames) => {
-      console.log('USERNAMES IN FILTER', usernames);
-      const matchingUsers = usernames?.filter((u) => {
-        return u.toLowerCase()?.includes(topic.search_term?.toLowerCase());
-      });
-      const userSearchList = document.getElementById('user-search-list');
-    
-      userSearchList.innerHTML = matchingUsers.map((u) => {
-        return `<div class='${u.toLowerCase()}'>${u}</div>`
-      }).join('\n');
-    
-      for (const u in matchingUsers) {
-        const userEl = userSearchList.getElementsByClassName(u.toLowerCase())[0];
-      
-        userEl.addEventListener("click", function() {
-          topic.set('assigned_user', u);
-          topic.set('is_assigned', true);
-          topic.set('search_term', '')
-          const event = new Event('change');  
-          document.getElementById('user-search').dispatchEvent(event);
-        });
-      }
-    })
-    .catch(err => console.error('Error reading from usernames', err));
+  console.log('USERNAMES IN FILTER', usernames);
+  const matchingUsers = usernames?.filter((u) => {
+    return u.toLowerCase()?.includes(topic.search_term?.toLowerCase());
+  });
+  const userSearchList = document.getElementById('user-search-list');
+
+  userSearchList.innerHTML = matchingUsers.map((u) => {
+    return `<div class='${u.toLowerCase()}'>${u}</div>`
+  }).join('\n');
+
+  for (const u in matchingUsers) {
+    const userEl = userSearchList.getElementsByClassName(u.toLowerCase())[0];
+  
+    userEl.addEventListener("click", function() {
+      topic.set('assigned_user', u);
+      topic.set('is_assigned', true);
+      topic.set('search_term', '')
+      const event = new Event('change');  
+      document.getElementById('user-search').dispatchEvent(event);
+    });
+  }
 }
 
 export default {

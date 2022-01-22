@@ -27,14 +27,10 @@ after_initialize do
 
         puts usernames
 
-        File.open("usernames.json", "w") do |f|
-          f.write(JSON.pretty_generate(usernames))
-        end
+        localStorage.setItem('usernames', JSON.stringify(usernames))
 
-        file = File.read('./usernames.json')
-        data_hash = JSON.parse(file)
-        puts "RUBY READ RESULT"
-        puts data_hash
+        puts "RUBY LOCAL STORAGE"
+        puts localStorage.getItem('usernames')
 
         Topic.register_custom_field_type('assigned_user', :text)
         Topic.register_custom_field_type('is_assigned', :boolean)
