@@ -16,12 +16,14 @@ after_initialize do
         users = User.first(3)
         usernames = []
 
-        puts 'RUBY USERS'
+        puts "RUBY USERS"
         puts users
 
         users.each do |user|
             usernames.push(user.username)
         end
+
+        puts usernames
 
         Topic.register_custom_field_type('assigned_user', :text)
         Topic.register_custom_field_type('is_assigned', :boolean)
@@ -33,7 +35,7 @@ after_initialize do
           if custom_fields['assigned_user'] != nil
             custom_fields['assigned_user']
           else
-            true
+            nil
           end
         end
 
@@ -41,7 +43,7 @@ after_initialize do
           if custom_fields['is_assigned'] != nil
             custom_fields['is_assigned']
           else
-            true
+            false
           end
         end
 
@@ -49,8 +51,16 @@ after_initialize do
           if custom_fields['search_term'] != nil
             custom_fields['search_term']
           else
-            true
+            ''
           end
+        end
+
+        add_to_class(:topic, :usernames) do
+            if custom_fields['usernames'] != nil
+                custom_fields['usernames']
+            else
+                usernames
+            end
         end
     
         add_to_serializer(:topic_view, :assigned_user) do

@@ -7,10 +7,10 @@ function filterUsersWithApi(api, opts) {
   // const users = api.container.lookup('controller:users')?.get('model') || {};
   // const userModel = api.container.lookup('models:users')
   const { usernames } = topic;
-  console.log('USER CURRENT', User.current());
-  console.log('USERS', users);
+  console.log('USERNAMES', usernames);
   console.log('TOPIC', topic);
-  const matchingUsers = usernames.filter((u) => {
+  console.log('USERNAMES VIA GET', topic.get('usernames'));
+  const matchingUsers = usernames?.filter((u) => {
       return u.toLowerCase()?.includes(topic.search_term?.toLowerCase());
   });
   const userSearchList = document.getElementById('user-search-list');
