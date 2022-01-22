@@ -10,7 +10,7 @@ function filterUsersWithApi(api, opts) {
 
   // const { usernames } = topic;
 
-  fetch('usernames.json')
+  fetch('http://localhost/usernames.json')
     .then((response) => {
       return response.json();
     })
