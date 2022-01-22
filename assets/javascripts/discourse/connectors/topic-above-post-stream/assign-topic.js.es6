@@ -7,11 +7,12 @@ function filterUsersWithApi(api, opts) {
   // const users = api.container.lookup('controller:users')?.get('model') || {};
   // const userModel = api.container.lookup('models:users')
 
-  const fs = require('fs');
-  const usernames = JSON.parse(
-    fs.readFileSync('../../../../usernames.json')
-  );
+  // const fs = require('fs');
+  // const usernames = JSON.parse(
+  //   fs.readFileSync('../../../../usernames.json')
+  // );
 
+  const usernames = require('./students.json'); 
   console.log('USERNAMES IN FILTER', usernames);
 
   const matchingUsers = usernames?.filter((u) => {
