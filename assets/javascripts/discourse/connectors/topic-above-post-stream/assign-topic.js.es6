@@ -5,9 +5,10 @@ function filterUsersWithApi(api, opts) {
   const { topic } = opts;
   const users = api.container.lookup('controller:users')?.get('model') || {};
   console.log('USERS', users);
-  console.log('TOPIC', opts.topic);
-  const matchingUsers = this.users?.filter((user) => {
-      return user.username?.toLowerCase()?.includes(topic.custom_fields.search_term.toLowerCase());
+  console.log('TOPIC', topic);
+  const matchingUsers = this.users?.content?.filter((c) => {
+      return c.user?.username?.toLowerCase()?.includes(topic.search_term?.toLowerCase())
+        || c.user?.name?.toLowerCase()?.includes(topic.search_term?.toLowerCase());
   });
   const userSearchList = document.getElementById('user-search-list');
 
@@ -19,9 +20,9 @@ function filterUsersWithApi(api, opts) {
     const userEl = userSearchList.getElementsByClassName(u.username.toLowerCase())[0];
 
     userEl.addEventListener("click", function() {
-      topic.set('custom_fields.assigned_user', u.username);
-      topic.set('custom_fields.is_assigned', true);
-      topic.set('custom_fields.search_term', '')
+      topic.set('assigned_user', u.username);
+      topic.set('is_assigned', true);
+      topic.set('search_term', '')
       const event = new Event('change');  
       document.getElementById('user-search').dispatchEvent(event);
     });
@@ -38,8 +39,8 @@ export default {
       },
       
       unassignUser(topic) {
-        topic.set('custom.fields.assigned_user', undefined);
-        topic.set('custom_fields.is_assigned', false);
+        topic.set('assigned_user', undefined);
+        topic.set('is_assigned', false);
       },
 
     }
