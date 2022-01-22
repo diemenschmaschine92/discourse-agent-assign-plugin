@@ -90,15 +90,15 @@ after_initialize do
         # end
     
         add_to_serializer(:topic_view, :assigned_user) do
-          if object.topic.custom_fields['assigned_user'] if object.topic.custom_fields
+          bject.topic.custom_fields['assigned_user'] if object.topic.custom_fields
         end
 
         add_to_serializer(:topic_view, :is_assigned) do
-            if object.topic.custom_fields['is_assigned'] if object.topic.custom_fields
+            object.topic.custom_fields['is_assigned'] if object.topic.custom_fields
         end
 
         add_to_serializer(:topic_view, :search_term) do
-            if object.topic.custom_fields['search_term'] if object.topic.custom_fields
+            object.topic.custom_fields['search_term'] if object.topic.custom_fields
         end
 
         # add_to_serializer(:topic_view, :usernames) do
