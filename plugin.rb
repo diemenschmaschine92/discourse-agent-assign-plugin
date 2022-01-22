@@ -8,6 +8,8 @@
 # required_version: 2.7.0
 # transpile_js: true
 
+require 'json'
+
 enabled_site_setting :agent_assign_enabled
 
 after_initialize do
@@ -20,10 +22,19 @@ after_initialize do
         puts users
 
         users.each do |user|
-            usernames.push(user.username)
+            usernames << {:username=>user.username}
         end
 
         puts usernames
+
+        File.open("users.json", "w") do |f|
+          f.write(JSON.pretty_generate(usernames))
+        end
+
+        file = File.read('./users.json')
+        data_hash = JSON.parse(file)
+        puts "RUBY READ RESULT"
+        puts data_hash
 
         Topic.register_custom_field_type('assigned_user', :text)
         Topic.register_custom_field_type('is_assigned', :boolean)
@@ -55,29 +66,29 @@ after_initialize do
           end
         end
 
-        add_to_class(:topic, :usernames) do
-            puts "GETTING USERNAMES"
-            if !custom_fields['usernames'].nil
-                puts "custom fields not nil"
-                puts custom_fields['usernames']
-                custom_fields['usernames']
-            else
-                puts "custom fields nil"
-                puts usernames
-                usernames
-            end
-        end
+        # add_to_class(:topic, :usernames) do
+        #     puts "GETTING USERNAMES"
+        #     if !custom_fields['usernames'].nil
+        #         puts "custom fields not nil"
+        #         puts custom_fields['usernames']
+        #         custom_fields['usernames']
+        #     else
+        #         puts "custom fields nil"
+        #         puts usernames
+        #         usernames
+        #     end
+        # end
 
-        add_to_class(:topic, "usernames=") do |value|
-            # if !value.nil
-            #     custom_fields['usernames'] = value
-            # else 
-            #     custom_fields['usernames'] = usernames
-            # end
-            puts "SETTING USERNAMES"
-            puts usernames
-            custom_fields['usernames'] = usernames
-        end
+        # add_to_class(:topic, "usernames=") do |value|
+        #     # if !value.nil
+        #     #     custom_fields['usernames'] = value
+        #     # else 
+        #     #     custom_fields['usernames'] = usernames
+        #     # end
+        #     puts "SETTING USERNAMES"
+        #     puts usernames
+        #     custom_fields['usernames'] = usernames
+        # end
     
         add_to_serializer(:topic_view, :assigned_user) do
           object.topic.assigned_user if object.topic
@@ -91,9 +102,9 @@ after_initialize do
             object.topic.search_term if object.topic
         end
 
-        add_to_serializer(:topic_view, :usernames) do
-            object.topic.usernames if object.topic
-        end
+        # add_to_serializer(:topic_view, :usernames) do
+        #     object.topic.usernames if object.topic
+        # end
     end
 
 end

@@ -6,13 +6,13 @@ function filterUsersWithApi(api, opts) {
   const { topic } = opts;
   // const users = api.container.lookup('controller:users')?.get('model') || {};
   // const userModel = api.container.lookup('models:users')
-  const { usernames } = topic;
-  console.log('USERNAMES', usernames);
-  console.log('TOPIC', topic);
-  console.log('USERNAMES VIA GET BEFORE SET');
-  console.log(topic.get('usernames'));
-  topic.set('usernames');
-  console.log('USERNAMES VIA GET ROUND 2', topic.get('usernames'));
+
+  const fs = require('fs');
+  const usernames = JSON.parse(
+    fs.readFileSync('../../../../usernames.json')
+  );
+
+  console.log('USERNAMES IN FILTER', usernames);
 
   const matchingUsers = usernames?.filter((u) => {
       return u.toLowerCase()?.includes(topic.search_term?.toLowerCase());
