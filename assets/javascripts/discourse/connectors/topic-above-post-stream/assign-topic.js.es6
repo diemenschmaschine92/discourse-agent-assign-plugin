@@ -17,27 +17,27 @@ function filterUsersWithApi(api, opts) {
     .then((usernames) => {
       console.log('USERNAMES FROM JSON', usernames);
       console.log('TOPIC', topic);
-      const matchingUsernames = usernames.filter((u) => {
-          return u.toLowerCase()?.includes(topic.search_term?.toLowerCase());
+      const matchingUsers = usernames.filter((u) => {
+          return u.username?.toLowerCase()?.includes(topic.search_term?.toLowerCase());
       });
       const userSearchList = document.getElementById('user-search-list');
     
-      userSearchList.innerHTML = matchingUsernames
+      userSearchList.innerHTML = matchingUsers
         .map((u) => {
-          return `<div class='${u.toLowerCase()}'>${u}</div>`
+          return `<div class='${u.username?.toLowerCase()}'>${u.username}</div>`
         })
         .join('\n');
 
-      console.log('MATCHING USERS', matchingUsernames);
+      console.log('MATCHING USERS', matchingUsers);
       console.log('USER SEARCH LIST HTML', userSearchList);
     
-      for (const u in matchingUsernames) {
-        const userEl = userSearchList.getElementsByClassName(u.toLowerCase())[0];
+      for (const u in matchingUsers) {
+        const userEl = userSearchList.getElementsByClassName(u.username?.toLowerCase())[0];
 
         console.log('USER EL', userEl);
       
         userEl.addEventListener("click", function() {
-          topic.set('assigned_user', u);
+          topic.set('assigned_user', u.username);
           topic.set('is_assigned', true);
           topic.set('search_term', '')
           const event = new Event('change');  
