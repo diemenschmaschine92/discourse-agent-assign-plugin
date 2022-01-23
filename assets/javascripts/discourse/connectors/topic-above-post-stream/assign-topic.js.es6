@@ -14,18 +14,16 @@ export default {
         })
         .then((usernames) => {
           component.set('usernames', usernames);
+          console.log('USERNAMES SET');
         })
         .catch(err => console.error('Error loading usernames', err));
   },
 
   actions: {
-    filterUsers(topic, event) {
-      console.log('USERNAMES IN HANDLER', this.get(usernames));
+    filterUsers(topic, usernames, event) {
+      console.log('USERNAMES IN HANDLER', usernames);
       console.log('TOPIC', topic);
-      console.log('EVENT', event);
-
-      const usernames = this.get(usernames);
-    
+      console.log('EVENT', event);    
       const matchingUsers = usernames.filter((u) => {
           return u.username?.toLowerCase()?.includes(event.target.value?.toLowerCase());
       });
@@ -45,7 +43,7 @@ export default {
           const event = new Event('change');
           document.getElementById('user-search').dispatchEvent(event);
         };
-        
+
         userEl.innerText = u.username;
         userSearchList.appendChild(userEl);
       });
