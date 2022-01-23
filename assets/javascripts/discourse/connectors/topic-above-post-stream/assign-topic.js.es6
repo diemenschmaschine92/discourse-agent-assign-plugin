@@ -14,39 +14,39 @@ export default {
         })
         .then((usernames) => {
           component.set('usernames', usernames);
-          console.log('USERNAMES SET');
         })
         .catch(err => console.error('Error loading usernames', err));
   },
 
   actions: {
     filterUsers(topic, usernames, event) {
-      console.log('USERNAMES IN HANDLER', usernames);
-      console.log('TOPIC', topic);
-      console.log('EVENT', event);    
+      // console.log('USERNAMES IN HANDLER', usernames);
+      // console.log('TOPIC', topic);
+      // console.log('EVENT', event);    
       const matchingUsers = usernames.filter((u) => {
           return u.username?.toLowerCase()?.includes(event.target.value?.toLowerCase());
       });
     
-      console.log('MATCHING USERS', matchingUsers);
       const userSearchList = document.getElementById('user-search-list');
+      const newUserSearchList = document.createElement('div');
     
       matchingUsers.forEach((u, i) => {
         const userEl = document.createElement('div');
         userEl.setAttribute('id', `username-${i}`);
+        userEl.className = 'user-result';
         userEl.innerText = u.username;
         userEl.onclick = function() {
-          console.log('CLICK HANDLER')
           topic.set('assigned_user', u.username);
           topic.set('is_assigned', true);
           topic.set('search_term', '');
           const event = new Event('change');
           document.getElementById('user-search').dispatchEvent(event);
         };
-        userSearchList.appendChild(userEl);
+        newUserSearchList.appendChild(userEl);
       });
-    
-      console.log('USER SEARCH LIST HTML', userSearchList);
+
+      userSearchList.innerHTML = newUserSearchList;
+      // console.log('USER SEARCH LIST HTML', newUserSearchList);
     },
     
     unassignUser(topic) {
