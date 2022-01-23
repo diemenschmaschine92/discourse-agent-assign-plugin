@@ -22,28 +22,47 @@ function filterUsersWithApi(api, opts) {
       });
       const userSearchList = document.getElementById('user-search-list');
     
-      userSearchList.innerHTML = matchingUsers
-        .map((u) => {
-          return `<div class='${u.username?.toLowerCase()}'>${u.username}</div>`
-        })
-        .join('\n');
+      // userSearchList.innerHTML = matchingUsers
+      //   .map((u) => {
+      //     return `<div class='${u.username?.toLowerCase()}'>${u.username}</div>`
+      //   })
+      //   .join('\n');
 
-      console.log('MATCHING USERS', matchingUsers);
-      console.log('USER SEARCH LIST HTML', userSearchList);
-    
-      for (const u in matchingUsers) {
-        const userEl = userSearchList.getElementsByClassName(u.username?.toLowerCase())[0];
+      // const userSearchResults = matchingUsers
+      //   .map((u) => {
+      //     return `<div class="${u.username?.toLowerCase()}">${u.username}</div>`;
+      //   })
+      //   .join('');
 
-        console.log('USER EL', userEl);
-      
-        userEl.addEventListener("click", function() {
+      matchingUsers.forEach((u, i) => {
+        const userEl = document.createElement('div');
+        userEl.setAttribute('id', `username-${i}`);
+        userEl.onclick = function() {
           topic.set('assigned_user', u.username);
           topic.set('is_assigned', true);
-          topic.set('search_term', '')
-          const event = new Event('change');  
+          topic.set('search_term', '');
+          const event = new Event('change');
           document.getElementById('user-search').dispatchEvent(event);
-        });
-      }
+        }
+        userSearchList.appendChild(userEl);
+      });
+
+      // console.log('MATCHING USERS', matchingUsers);
+      console.log('USER SEARCH LIST HTML', userSearchList);
+    
+      // for (const u in matchingUsers) {
+      //   // const userEl = userSearchList.getElementsByClassName(u.username?.toLowerCase())[0];
+      //   userEl
+      //   console.log('USER EL', userEl);
+      
+      //   userEl.addEventListener("click", function() {
+      //     topic.set('assigned_user', u.username);
+      //     topic.set('is_assigned', true);
+      //     topic.set('search_term', '')
+      //     const event = new Event('change');  
+      //     document.getElementById('user-search').dispatchEvent(event);
+      //   });
+      // }
     })
     .catch(err => console.error('Error loading usernames', err));
 }
