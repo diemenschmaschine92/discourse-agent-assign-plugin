@@ -45,7 +45,7 @@ function filterUsersWithApi(api, opts) {
         });
       }
     })
-    .catch(err => console.err('Error loading usernames', err));
+    .catch(err => console.error('Error loading usernames', err));
 }
 
 export default {
