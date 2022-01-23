@@ -20,7 +20,7 @@ export default {
   },
 
   actions: {
-    filterUsers(topic, usernames, uploaded_avatar_id, event) {
+    filterUsers(topic, usernames, event) {
       console.log('USERNAMES IN HANDLER', usernames);
       console.log('TOPIC', topic);
       console.log('EVENT', event);    
