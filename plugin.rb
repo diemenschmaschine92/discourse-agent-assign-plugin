@@ -12,6 +12,8 @@ require 'json'
 
 enabled_site_setting :agent_assign_enabled
 
+register_asset 'stylesheets/common/assign.scss'
+
 after_initialize do
     if SiteSetting.agent_assign_enabled then
 
@@ -22,7 +24,7 @@ after_initialize do
         puts users
 
         users.each do |user|
-          usernames << {:username=>user.username, :uploaded_avatar_id=>user.uploaded_avatar_id}
+          usernames << {:username=>user.username}
         end
 
         File.open("public/usernames.json", "w") do |f|

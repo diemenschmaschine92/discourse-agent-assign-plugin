@@ -43,14 +43,6 @@ export default {
           const event = new Event('change');
           document.getElementById('user-search').dispatchEvent(event);
         };
-
-        const avatarPath = `/letter_avatar_proxy/v4/letter/j/${uploaded_avatar_id}/32.png`
-        const avatarEl = document.createElement('img');
-        avatarEl.setAttribute('src', avatarPath);
-        avatarEl.setAttribute('alt', 'user avatar');
-        avatarEl.setAttribute('class', 'avatar');
-
-        userEl.appendChild(avatarEl);
         userSearchList.appendChild(userEl);
       });
     
