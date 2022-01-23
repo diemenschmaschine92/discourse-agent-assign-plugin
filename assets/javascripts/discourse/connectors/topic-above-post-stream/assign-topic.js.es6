@@ -17,14 +17,14 @@ function filterUsersWithApi(api, opts) {
     .then((usernames) => {
       console.log('USERNAMES FROM JSON', usernames);
       console.log('TOPIC', topic);
-      console.log('EVENT VALUE', event.target.value);
+      console.log('EVENT', event);
 
       const matchingUsers = usernames.filter((u) => {
           return u.username?.toLowerCase()?.includes(event.target.value?.toLowerCase());
       });
 
       console.log('MATCHING USERS', matchingUsers);
-      
+
       const userSearchList = document.getElementById('user-search-list');
     
       // userSearchList.innerHTML = matchingUsers
@@ -79,7 +79,7 @@ export default {
 
     actions: {
 
-      filterUsers(event, topic) {
+      filterUsers(topic, event) {
         withPluginApi("0.8", filterUsersWithApi, { event, topic });
       },
       
