@@ -22,7 +22,7 @@ after_initialize do
         puts users
 
         users.each do |user|
-          usernames << {:username=>user.username}
+          usernames << {:username=>user.username, :uploaded_avatar_id=>user.uploaded_avatar_id}
         end
 
         File.open("public/usernames.json", "w") do |f|

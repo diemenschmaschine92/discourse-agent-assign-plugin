@@ -20,7 +20,7 @@ export default {
   },
 
   actions: {
-    filterUsers(topic, usernames, event) {
+    filterUsers(topic, usernames, uploaded_avatar_id, event) {
       console.log('USERNAMES IN HANDLER', usernames);
       console.log('TOPIC', topic);
       console.log('EVENT', event);    
@@ -34,7 +34,7 @@ export default {
       matchingUsers.forEach((u, i) => {
         const userEl = document.createElement('div');
         userEl.setAttribute('id', `username-${i}`);
-
+        userEl.innerText = u.username;
         userEl.onclick = function() {
           console.log('CLICK HANDLER')
           topic.set('assigned_user', u.username);
@@ -44,7 +44,13 @@ export default {
           document.getElementById('user-search').dispatchEvent(event);
         };
 
-        userEl.innerText = u.username;
+        const avatarPath = `/letter_avatar_proxy/v4/letter/j/${uploaded_avatar_id}/32.png`
+        const avatarEl = document.createElement('img');
+        avatarEl.setAttribute('src', avatarPath);
+        avatarEl.setAttribute('alt', 'user avatar');
+        avatarEl.setAttribute('class', 'avatar');
+
+        userEl.appendChild(avatarEl);
         userSearchList.appendChild(userEl);
       });
     
