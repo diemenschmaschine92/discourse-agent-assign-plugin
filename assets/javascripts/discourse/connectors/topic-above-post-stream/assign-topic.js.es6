@@ -28,8 +28,8 @@ export default {
       });
     
       const userSearchList = document.getElementById('user-search-list');
-      const newUserSearchList = document.createElement('div');
-    
+      userSearchList.innerHTML = '';
+
       matchingUsers.forEach((u, i) => {
         const userEl = document.createElement('div');
         userEl.setAttribute('id', `username-${i}`);
@@ -42,10 +42,9 @@ export default {
           const event = new Event('change');
           document.getElementById('user-search').dispatchEvent(event);
         };
-        newUserSearchList.appendChild(userEl);
+        userSearchList.appendChild(userEl);
       });
 
-      userSearchList.innerHTML = newUserSearchList;
       // console.log('USER SEARCH LIST HTML', newUserSearchList);
     },
     
