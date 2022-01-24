@@ -1,11 +1,11 @@
 .user-search-list {
     background-color: beige;
     padding: 4px;
-}
 
-.user-results:hover {
-    background-color: rgb(200, 200, 200);
-    cursor: pointer;
+    div:hover {
+        background-color: rgb(200, 200, 200);
+        cursor: pointer;
+    }
 }
 
 .username {
